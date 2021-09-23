@@ -1,19 +1,32 @@
-# YOU NEED TO INSTALL AND SET UP "SELENIUM"
-from selenium import webdriver
 from time import sleep
+from selenium import webdriver
 
-driver = webdriver.Firefox()
+browser = webdriver.Firefox()
 
-driver.get("https://10fastfingers.com/typing-test/english")
-
-print(driver.title)
+option = input("[1] typing-test\n[2] Multiplayer\n\nYour option: ")
 delay = float(input("The delay between each word: "))
-field = driver.find_element_by_id("inputfield")
+
+if option == "1":
+    browser.get("https://10fastfingers.com/typing-test/english")
+    sleep(0.2)
+    field = browser.find_element_by_id("inputfield")
+elif option == "2":
+    browser.get("https://10ff.net/login")
+    input("Enter username in the browser and press ENTER...")
+    browser.get("https://10fastfingers.com/multiplayer")
+    sleep(0.2)
+    field = browser.find_element_by_tag_name("input")
+else:
+    print("Can you not read idiot?! Only '1' & '2' are valid options!")
+    sleep(2)
+    exit()
+
+input("Press ENTER to start!!!")
 for i in range(400):
-    word = driver.find_element_by_class_name("highlight")
+    word = browser.find_element_by_class_name("highlight")
     field.send_keys(word.text)
     field.send_keys(" ")
     sleep(delay)
 
 sleep(3)
-driver.quit()
+browser.quit()
